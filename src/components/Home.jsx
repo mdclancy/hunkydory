@@ -27,7 +27,7 @@ function Mountain({ windowWidth, setAbout, bounce }) {
       <div
         className="
           relative
-          top-[50dvw] md:top-[15dvw] lg:top-[10dvw] xl:top-[8dvw]
+          top-[47dvw] md:top-[17dvw] lg:top-[10dvw] xl:top-[7dvw]
           right-[60dvw]
           w-[170dvw]
         ">
@@ -59,8 +59,8 @@ function Flag({ setAbout, bounce }) {
         <div>
             <style>{`
                 @keyframes bounce-click {
-                    0%, 100% { transform: translateY(0) rotate(-35deg); }
-                    50% { transform: translateY(-3dvw) rotate(-35deg); }
+                    0%, 100% { transform: translateY(0) rotate(10deg); }
+                    50% { transform: translateY(-3dvw) rotate(10deg); }
                 }
                 .animate-bounce-click {
                     animation: bounce-click 0.7s ease-in-out;
@@ -70,24 +70,23 @@ function Flag({ setAbout, bounce }) {
                 onClick={() => setAbout(true)}
                 className={`
                     absolute
-                    top-[50dvw] md:top-[15dvw] lg:top-[10dvw] xl:top-[7dvw]
-                    left-[1dvw]
-                    w-[20dvw]
+                    top-[39dvw] md:top-[8dvw] lg:top-[3dvw] xl:top-[0dvw]
+                    left-[-4dvw]
+                    w-[26dvw]
                     z-[2]
-                    rotate-[-35deg]
-                    hover:rotate-[-25deg]
+                    rotate-[10deg] hover:rotate-[2deg]
+                    ${bounce ? 'animate-bounce-click' : ''}
                     transition-transform
                     duration-300
                     flex
                     items-center
                     justify-center
                     cursor-pointer
-                    ${bounce ? 'animate-bounce-click' : ''}
                 `}
                 style={{ cursor: `url('${BASE_URL}fish.png'), auto` }}
             >
             <img
-                src={`${BASE_URL}flag.svg`}
+                src={`${BASE_URL}flag.png`}
                 alt="Flag"
                 className="w-full h-auto block"
                 draggable="false"
@@ -100,12 +99,12 @@ function Flag({ setAbout, bounce }) {
                     flex
                     items-center
                     justify-center
-                    text-[2.2dvw] font-bold
-                    top-[-5dvw]
-                    left-[3dvw]
+                    text-[2.8dvw] font-bold
+                    top-[-8dvw]
+                    left-[1dvw]
                     text-black
                     select-none
-                    rotate-[15deg]
+                    rotate-[-25deg]
                     pointer-events-none
                 "
                 style={{
@@ -335,8 +334,8 @@ function Footer() {
     md:h-[15dvw] lg:h-[10dvw] z-[2]">
       
       <p className="text-[#9c7e71] absolute
-      bottom-[1dvw] right-[1.5dvw] text-[3dvw] md:text-[2.5dvw]
-      lg:text-[1.7dvw] text-right leading-relaxed mb-[1dvw] md:mb-[0]
+      bottom-[1dvw] right-[1.5dvw] text-[2.2dvw] md:text-[1.7dvw]
+      lg:text-[1.2dvw] text-right leading-relaxed mb-[1dvw] md:mb-[0]
       font-['Helvetica','Arial',sans-serif]"
       style={{ fontFamily: "'Times New Roman', Times, serif"}}>
           <a style={{ cursor: `url('${BASE_URL}fish.png'), auto` ,
@@ -344,7 +343,7 @@ function Footer() {
           className="underline"
           href="mailto:hello@hunkydory.online">hello@hunkydory.online</a>
         <br />
-        Website by{' '}
+        Developed by{' '}
         <a href="https://github.com/nshaff3r" className="underline"
         style={{ fontFamily: "'Times New Roman', Times, serif",
           cursor: `url('${BASE_URL}fish.png'), auto`
@@ -365,9 +364,9 @@ function Trees() {
       {[...Array(treeCount)].map((_, i) => (
         <img 
           key={i}
-          src={`${BASE_URL}tree.svg`}
+          src={`${BASE_URL}tree.png`}
           alt="tree"
-          className="w-[12dvw] z-[5] flex-shrink-0 ml-[0px]"
+          className="w-[30vw] md:w-[25dvw] z-[5] flex-shrink-0 ml-[0px]"
           draggable={false}
           style={{ pointerEvents: "auto" }}
         />
@@ -382,8 +381,8 @@ function About({ trigger, onAnimationEnd }) {
       <style>{`
         @keyframes slide-across {
           0% { right: -100%; }
-          30% { right: 0%; }
-          70% { right: 0%; }
+          30% { right: -.5%; }
+          70% { right: -.5%; }
           100% { right: 100%; }
         }
       `}</style>
@@ -413,9 +412,9 @@ function Planet({ windowWidth }) {
   return (
     <div className="absolute"
     style={{
-      top: isDark ? windowWidth < 768 ? '7dvw' : '-3dvw' : '-20dvw',
-      right: isDark ? windowWidth < 768 ? '2dvw' : '-4dvw' : '-20dvw' }}>
-      <img src={`${BASE_URL}${isDark ? 'moon.svg' : 'sun.svg'}`} alt="planet"
+      top: isDark ? windowWidth < 768 ? '7dvw' : '-3dvw' : '-15dvw',
+      right: isDark ? windowWidth < 768 ? '2dvw' : '-4dvw' : '-15dvw' }}>
+      <img src={`${BASE_URL}${isDark ? 'moon.png' : 'sun.png'}`} alt="planet"
       className={isDark ? "w-[20dvw]" :
       windowWidth < 768 ? "w-[50dvw]" : "w-[35dvw]"} />
     </div>
