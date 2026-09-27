@@ -3,6 +3,7 @@ import { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from "motion/react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom'
 
 const BASE_URL = import.meta.env.BASE_URL;
 
@@ -13,6 +14,8 @@ const transition = {
     ease: "easeInOut",
 }
 
+const BOUNCE_DELAY = 800
+
 const PATH =
 "M 1190.73 310.28 L 1338.45 484.76 L 2071.73 1506.96"
 
@@ -20,10 +23,11 @@ const PATH_2 =
 "M -416.68 719.93 C -297.06 685.85 572.55 629.03 431.98 318.88 C 391.97 230.61 54.78 202.9 157.89 490.62 C 215.99 652.72 980.13 349.43 1127.42 277.97"
 
 
-function Mountain({ windowWidth, setAbout, bounce }) {
+function Mountain({ windowWidth, setAbout}) {
   return (
     <div className="relative">
-        <Flag setAbout={setAbout} bounce={bounce}/>
+        <About setAbout={setAbout}/>
+        <Subscribe/>
       <div
         className="
           relative
@@ -53,42 +57,44 @@ function Mountain({ windowWidth, setAbout, bounce }) {
 }
 
 
-function Flag({ setAbout, bounce }) {
+function About({ setAbout, bounce }) {
+  const [clicked, setClicked] = useState(false)
 
+  const handleClick = () => {
+    setClicked(true)
+    setTimeout(() => {
+      setAbout(true)
+      setClicked(false)
+    }, BOUNCE_DELAY)
+  }
     return (
         <div>
-            <style>{`
-                @keyframes bounce-click {
-                    0%, 100% { transform: translateY(0) rotate(10deg); }
-                    50% { transform: translateY(-3dvw) rotate(10deg); }
-                }
-                .animate-bounce-click {
-                    animation: bounce-click 0.7s ease-in-out;
-                }
-            `}</style>
             <div
-                onClick={() => setAbout(true)}
+                onClick={handleClick}
                 className={`
                     absolute
-                    top-[39dvw] md:top-[8dvw] lg:top-[3dvw] xl:top-[0dvw]
-                    left-[-4dvw]
+                    scale-50
+                    top-[55dvw] md:top-[25dvw] lg:top-[18dvw] xl:top-[14dvw]
+                    left-[15dvw]
                     w-[26dvw]
                     z-[2]
-                    rotate-[10deg] hover:rotate-[2deg]
-                    ${bounce ? 'animate-bounce-click' : ''}
+                    rotate-[45deg] hover:rotate-[66deg]
+                    ${clicked ? 'animate-bounce-click' : ''}
                     transition-transform
                     duration-300
                     flex
                     items-center
                     justify-center
-                    cursor-pointer
                 `}
-                style={{ cursor: `url('${BASE_URL}fish.png'), auto` }}
+                style={{ 
+		  '--base-rotate': '66deg',
+		  '--base-scale': '0.5',
+		 }}
             >
             <img
                 src={`${BASE_URL}flag.png`}
                 alt="Flag"
-                className="w-full h-auto block"
+                className="w-full h-auto block cursor-pointer"
                 draggable="false"
                 style={{ display: 'block' }}
             />
@@ -113,6 +119,75 @@ function Flag({ setAbout, bounce }) {
                 }}
             >
                 about
+            </span>
+          </div>
+        </div>
+    );
+}
+
+function Subscribe() {
+  const navigate = useNavigate()
+  const [clicked, setClicked] = useState(false)
+
+  const handleClick = () => {
+    setClicked(true)
+    setTimeout(() => {
+      navigate('/subscribe')
+      setClicked(false)
+    }, BOUNCE_DELAY)
+  }
+
+    return (
+        <div>
+            <div
+              onClick={handleClick}
+              className={`
+                absolute
+                scale-75
+                top-[42dvw] md:top-[12dvw] lg:top-[5dvw] xl:top-[2dvw]
+                left-[-2dvw]
+                w-[26dvw]
+                z-[2]
+                rotate-[5deg] hover:rotate-[-2deg]
+                ${clicked ? 'animate-bounce-click' : ''}
+                transition-transform
+                duration-300
+                flex
+                items-center
+                justify-center
+              `}
+                style={{
+		  '--base-rotate': '-2deg',
+		  '--base-scale': '0.75' }}
+            >
+            <img
+                src={`${BASE_URL}flag.png`}
+                alt="Flag"
+                className="w-full h-auto block cursor-pointer"
+                draggable="false"
+                style={{ display: 'block' }}
+            />
+            <span
+                className="
+                    absolute
+                    inset-0
+                    flex
+                    items-center
+                    justify-center
+                    text-[1.85dvw] font-bold
+                    top-[-8dvw]
+                    left-[1dvw]
+                    text-black
+                    select-none
+                    rotate-[-25deg]
+                    pointer-events-none
+                "
+                style={{
+                  fontFamily: 'Bohemian Typewriter',
+                  letterSpacing: '0.07em',
+                }}
+            >
+                subscribe
             </span>
           </div>
         </div>
@@ -295,7 +370,7 @@ function HdBox({ scrollY, windowWidth }) {
         transition={{ duration: 0.2, ease: "easeOut" }}
       >
         <a 
-          href={`${BASE_URL}hdv1.pdf`}
+          href={`${BASE_URL}hdv2.pdf`}
           className="block w-full h-full"
           style={isClickable ? { cursor: `url('${BASE_URL}fish.png'), auto` } :{
           cursor: `url('${BASE_URL}fish2.png'), auto`}}
@@ -316,9 +391,9 @@ function HdBox({ scrollY, windowWidth }) {
               opacity: opacity_scroll,
             }}
           >
-            <img src={`${BASE_URL}vol1.png`} alt="vol1 link"/>
+            <img src={`${BASE_URL}vol2.png`} alt="vol2 link"/>
           </motion.div>
-          <img src={`${BASE_URL}hdv1-thumbnail.png`} alt="vol1 thumbnail"
+          <img src={`${BASE_URL}hdv2-thumbnail.png`} alt="vol2 thumbnail"
           className="w-full h-full rounded-xl object-cover"/>
         </div>
       </a>
@@ -350,6 +425,13 @@ function Footer() {
          }}>
           Nolan Shaffer
         </a>
+        {" and "} 
+        <a href="https://github.com/mdclancy" className="underline"
+        style={{ fontFamily: "'Times New Roman', Times, serif",
+          cursor: `url('${BASE_URL}fish.png'), auto`
+        }}>
+          Michael Clancy
+        </a>
       </p>
     </div>
   )
@@ -375,7 +457,7 @@ function Trees() {
   )
 }
 
-function About({ trigger, onAnimationEnd }) {
+function AboutText({ trigger, onAnimationEnd }) {
   return (
     <div>
       <style>{`
@@ -471,8 +553,8 @@ export default function Home() {
             /> */}
           </div>
             <Planet windowWidth={windowWidth}/>
-            <Mountain windowWidth={windowWidth} setAbout={setAbout} bounce={about}/>
-            <About trigger={about} onAnimationEnd={() => setAbout(false)}/>
+            <Mountain windowWidth={windowWidth} setAbout={setAbout}/>
+            <AboutText trigger={about} onAnimationEnd={() => setAbout(false)}/>
             <Article windowWidth={windowWidth}/>
             <Trees />
             <Footer />

@@ -2,6 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@keyframes bounce-click {
+  0%, 100% {
+    transform:
+      translateY(0)
+      rotate(var(--base-rotate, 0deg))
+      scale(var(--base-scale, 1));
+  }
+  50% {
+    transform:
+      translateY(-1dvw)
+      rotate(calc(var(--base-rotate, 0deg) + 11deg))
+      scale(calc(var(--base-scale, 1) * 1.2));
+  }
+}
+.animate-bounce-click {
+  animation: bounce-click 0.7s ease-in-out;
+}
+
+.subscribe {
+  cursor: url('../fish2inv.png'), auto;
+}
+
+.cursor-pointer,
+  .cursor-pointer * {
+  cursor: url('../fish.png'), auto !important;
+}
+
+.subscribe .black-cursor {
+  cursor: url('../fish2.png'), auto;
+}
+
+.subscribe img.mountain {
+  clip-path: polygon(
+    48% 6.4%, 
+    63.8% 31.6%,
+    99.1% 98.6%,
+    3.5% 98.6%,
+    32.4% 35.2%
+  );
+}
+
 body {
   background-color: #bedbff;
 }
